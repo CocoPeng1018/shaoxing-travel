@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绍兴五日游 - 行程规划</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 40px 0;
+            background: #fff;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .weather-info {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .day-card {
+            background: #fff;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .day-header {
+            background: #2c3e50;
+            color: #fff;
+            padding: 15px 20px;
+        }
+        .day-content {
+            padding: 20px;
+        }
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: #ddd;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #2c3e50;
+        }
+        .map-container {
+            width: 100%;
+            height: 400px;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .spot-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .spot-card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .spot-card:hover {
+            transform: translateY(-5px);
+        }
+        .spot-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        .spot-card-content {
+            padding: 15px;
+        }
+        .spot-card-content h4 {
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        .spot-card-content p {
+            color: #666;
+            font-size: 14px;
+        }
+        .weather-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .weather-card {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .utility-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .utility-button {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .utility-button:hover {
+            background: #34495e;
+        }
+        .utility-button i {
+            font-size: 16px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="banner" style="width: 100%; height: 400px; overflow: hidden; margin-bottom: 30px;">
+            <img src="https://gw.alicdn.com/imgextra/i4/O1CN01c26iB51V3oUdW6pW9_!!6000000002601-0-tps-2520-1680.jpg" alt="绍兴全景" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <h1>绍兴五日游行程规划</h1>
+        <p>2024年5月1日 - 5月5日</p>
+    </header>
+
+    <div class="container">
+        <div class="weather-info">
+            <h2>天气预报</h2>
+            <div class="weather-grid">
+                <div class="weather-card">
+                    <h3>5月1日</h3>
+                    <p>白天：小雨 29°C</p>
+                    <p>夜间：晴 16°C</p>
+                    <p><i class="fas fa-wind"></i> 东北风 1-3级</p>
+                </div>
+                <div class="weather-card">
+                    <h3>5月2日</h3>
+                    <p>白天：晴 33°C</p>
+                    <p>夜间：多云 20°C</p>
+                    <p><i class="fas fa-wind"></i> 东南风 1-3级</p>
+                </div>
+                <div class="weather-card">
+                    <h3>5月3日</h3>
+                    <p>白天：晴 35°C</p>
+                    <p>夜间：多云 17°C</p>
+                    <p><i class="fas fa-wind"></i> 东风 1-3级</p>
+                </div>
+                <div class="weather-card">
+                    <h3>5月4日</h3>
+                    <p>天气数据更新中...</p>
+                    <p><i class="fas fa-sync fa-spin"></i></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 1 -->
+        <div class="day-card">
+            <div class="day-header">
+                <h2>Day 1 - 5月1日</h2>
+            </div>
+            <div class="day-content">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>08:56 - 14:12</h3>
+                        <p>北京南站 → 绍兴北站</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>14:30 - 15:30</h3>
+                        <p>前往绍兴兰亭璞燊酒店办理入住</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>16:00 - 18:00</h3>
+                        <p>参观书法博物馆</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>18:30</h3>
+                        <p>入住绍兴兰亭璞燊酒店</p>
+                        <p><i class="fas fa-hotel"></i> 阳明路27号</p>
+                    </div>
+                </div>
+                <div class="spot-cards">
+                    <div class="spot-card">
+                        <img src="https://gw.alicdn.com/imgextra/i2/O1CN01Zg2Tct1delNB7nz77_!!6000000003761-0-tps-1620-1080.jpg" alt="绍兴北站">
+                        <div class="spot-card-content">
+                            <h4>绍兴北站</h4>
+                            <p>现代化的高铁枢纽站，是绍兴对外交通的重要门户</p>
+                        </div>
+                    </div>
+                    <div class="spot-card">
+                        <img src="https://gw.alicdn.com/imgextra/i3/O1CN01DMPMjg1W6zFPKcF5d_!!6000000002739-0-tps-1620-1080.jpg" alt="兰亭书法博物馆">
+                        <div class="spot-card-content">
+                            <h4>兰亭书法博物馆</h4>
+                            <p>展示王羲之书法艺术，感受书法文化的魅力</p>
+                        </div>
+                    </div>
+                    <div class="spot-card">
+                        <img src="https://gw.alicdn.com/imgextra/i4/O1CN01nnQJ0N1YwKoGTGqRE_!!6000000003120-0-tps-1620-1080.jpg" alt="绍兴兰亭璞燊酒店">
+                        <div class="spot-card-content">
+                            <h4>绍兴兰亭璞燊酒店</h4>
+                            <p>位于阳明路27号，环境优雅，紧邻兰亭景区</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="utility-buttons">
+                    <button class="utility-button" onclick="openNavigation(day1Spots[0].position)">
+                        <i class="fas fa-location-arrow"></i>导航到起点
+                    </button>
+                    <button class="utility-button" onclick="callTaxi(day1Spots[0].position)">
+                        <i class="fas fa-taxi"></i>一键打车
+                    </button>
+                    <button class="utility-button" onclick="showNearbySearch(day1Spots[0].position)">
+                        <i class="fas fa-search-location"></i>周边搜索
+                    </button>
+                </div>
+                <div id="map-day1" class="map-container"></div>
+            </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="day-card">
+            <div class="day-header">
+                <h2>Day 2 - 5月2日</h2>
+            </div>
+            <div class="day-content">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>09:00 - 11:30</h3>
+                        <p>游览兰亭景区</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>12:00 - 14:00</h3>
+                        <p>前往鉴湖</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>14:30 - 16:30</h3>
+                        <p>游览柯岩风景区</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>17:00 - 18:00</h3>
+                        <p>参观鉴湖酒坊</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>18:30 - 19:30</h3>
+                        <p>先锋鉴湖书店</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>20:00</h3>
+                        <p>入住绍兴璞祺艺境酒店</p>
+                        <p><i class="fas fa-hotel"></i> 海山路1号</p>
+                    </div>
+                </div>
+                <div class="spot-cards">
+                    <div class="spot-card">
+                        <img src="https://gw.alicdn.com/imgextra/i1/O1CN01Hs7Qcj1lkWGtEFKDK_!!6000000004857-0-tps-1620-1080.jpg" alt="兰亭景区">
+                        <div class="spot-card-content">
+                            <h4>兰亭景区</h4>
+                            <p>王羲之笔下的兰亭胜境，书法艺术圣地</p>
+                        </div>
+                    </div>
+                    <div class="spot-card">
+                        <img src="https://gw.alicdn.com/imgextra/i2/O1CN01wQWgQE1YxnNvEFAzm_!!6000000003122-0-tps-1620-1080.jpg" alt="鉴湖">
+                        <div class="spot-card-content">
+                            <h4>鉴湖</h4>
+                            <p>越国文化发祥地，著名的越国八大景之一</p>
+                        </div>
+                    </div>
+                    <div class="spot-card">
+                        <img src="https://gw.alicdn.com/imgextra/i4/O1CN01c1POLW1MPVxFtJMxF_!!6000000001432-0-tps-1620-1080.jpg" alt="柯岩风景区">
+                        <div class="spot-card-content">
+                            <h4>柯岩风景区</h4>
+                            <p>集自然山水与人文景观于一体的5A级景区</p>
+                        </div>
+                    </div>
+                    <div class="spot-card">
+                        <img src="https://gw.alicdn.com/imgextra/i4/O1CN01nnQJ0N1YwKoGTGqRE_!!6000000003120-0-tps-1620-1080.jpg" alt="绍兴璞祺艺境酒店">
+                        <div class="spot-card-content">
+                            <h4>绍兴璞祺艺境酒店</h4>
+                            <p>位于海山路1号，临近柯岩景区，环境优美</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="utility-buttons">
+                    <button class="utility-button" onclick="openNavigation(day2Spots[0].position)">
+                        <i class="fas fa-location-arrow"></i>导航到起点
+                    </button>
+                    <button class="utility-button" onclick="callTaxi(day2Spots[0].position)">
+                        <i class="fas fa-taxi"></i>一键打车
+                    </button>
+                    <button class="utility-button" onclick="showNearbySearch(day2Spots[0].position)">
+                        <i class="fas fa-search-location"></i>周边搜索
+                    </button>
+                </div>
+                <div id="map-day2" class="map-container"></div>
+            </div>
+        </div>
+
+        <!-- Day 3 -->
+        <div class="day-card">
+            <div class="day-header">
+                <h2>Day 3 - 5月3日</h2>
+            </div>
+            <div class="day-content">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>09:00 - 10:30</h3>
+                        <p>参观书圣故里</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>11:00 - 12:30</h3>
+                        <p>游览阳明故居</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>14:00 - 15:30</h3>
+                        <p>参观子民图书馆</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>16:00 - 18:30</h3>
+                        <p>游览历史街区（有涧-松间-西小路-仓桥直街/龙山后街）</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>19:00 - 20:00</h3>
+                        <p>拜拜咖啡馆休息</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>20:30</h3>
+                        <p>入住绍兴饭店</p>
+                        <p><i class="fas fa-hotel"></i> 环山路8号</p>
+                    </div>
+                </div>
+                <div class="spot-cards">
+                    <div class="spot-card">
+                        <img src="https://gw.alicdn.com/imgextra/i3/O1CN01DMPMjg1W6zFPKcF5d_!!6000000002739-0-tps-1620-1080.jpg" alt="阳明故居">
+                        <div class="spot-card-content">
+                            <h4>阳明故居</h4>
+                            <p>明代著名思想家王阳明的故居，感受心学文化</p>
+                        </div>
+                    </div>
+                    <div class="spot-card">
+                        <img src="https://gw.alicdn.com/imgextra/i2/O1CN01KYO5401CBP6N7K0ZY_!!6000000000045-0-tps-1620-1080.jpg" alt="历史街区">
+                        <div class="spot-card-content">
+                            <h4>历史街区</h4>
+                            <p>保存完好的明清建筑群，展现古城风貌</p>
+                        </div>
+                    </div>
+                    <div class="spot-card">
+                        <img src="https://gw.alicdn.com/imgextra/i4/O1CN01nnQJ0N1YwKoGTGqRE_!!6000000003120-0-tps-1620-1080.jpg" alt="绍兴饭店">
+                        <div class="spot-card-content">
+                            <h4>绍兴饭店</h4>
+                            <p>位于环山路8号，绍兴市区地标性酒店</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="utility-buttons">
+                    <button class="utility-button" onclick="openNavigation(day3Spots[0].position)">
+                        <i class="fas fa-location-arrow"></i>导航到起点
+                    </button>
+                    <button class="utility-button" onclick="callTaxi(day3Spots[0].position)">
+                        <i class="fas fa-taxi"></i>一键打车
+                    </button>
+                    <button class="utility-button" onclick="showNearbySearch(day3Spots[0].position)">
+                        <i class="fas fa-search-location"></i>周边搜索
+                    </button>
+                </div>
+                <div id="map-day3" class="map-container"></div>
+            </div>
+        </div>
+
+        <!-- Day 4 -->
+        <div class="day-card">
+            <div class="day-header">
+                <h2>Day 4 - 5月4日</h2>
+            </div>
+            <div class="day-content">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>09:00 - 11:00</h3>
+                        <p>参观绍兴博物馆</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>11:30 - 13:30</h3>
+                        <p>游览鲁迅故里</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>14:00 - 15:30</h3>
+                        <p>游览沈园</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>16:00 - 18:00</h3>
+                        <p>游览东湖</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>18:30</h3>
+                        <p>返回绍兴饭店</p>
+                        <p><i class="fas fa-hotel"></i> 环山路8号</p>
+                    </div>
+                </div>
+                <div class="spot-cards">
+                    <div class="spot-card">
+                        <img src="https://gw.alicdn.com/imgextra/i1/O1CN01qxkqx51nK4RtPGnEA_!!6000000005071-0-tps-1620-1080.jpg" alt="绍兴博物馆">
+                        <div class="spot-card-content">
+                            <h4>绍兴博物馆</h4>
+                            <p>展示绍兴历史文化的重要场所</p>
+                        </div>
+                    </div>
+                    <div class="spot-card">
+                        <img src="https://gw.alicdn.com/imgextra/i3/O1CN01DMPMjg1W6zFPKcF5d_!!6000000002739-0-tps-1620-1080.jpg" alt="鲁迅故里">
+                        <div class="spot-card-content">
+                            <h4>鲁迅故里</h4>
+                            <p>文学巨匠鲁迅的故居，感受文学大师的生活轨迹</p>
+                        </div>
+                    </div>
+                    <div class="spot-card">
+                        <img src="https://gw.alicdn.com/imgextra/i4/O1CN01HHwDSp29zFLLJx3Zk_!!6000000002118-0-tps-1620-1080.jpg" alt="沈园">
+                        <div class="spot-card-content">
+                            <h4>沈园</h4>
+                            <p>陆游与唐婉"红娘子"故事发生地，典型的江南园林</p>
+                        </div>
+                    </div>
+                    <div class="spot-card">
+                        <img src="https://gw.alicdn.com/imgextra/i2/O1CN01wQWgQE1YxnNvEFAzm_!!6000000003122-0-tps-1620-1080.jpg" alt="东湖">
+                        <div class="spot-card-content">
+                            <h4>东湖</h4>
+                            <p>绍兴市区最大的城市公园，风景优美</p>
+                        </div>
+                    </div>
+                    <div class="spot-card">
+                        <img src="https://gw.alicdn.com/imgextra/i4/O1CN01nnQJ0N1YwKoGTGqRE_!!6000000003120-0-tps-1620-1080.jpg" alt="绍兴饭店">
+                        <div class="spot-card-content">
+                            <h4>绍兴饭店</h4>
+                            <p>位于环山路8号，绍兴市区地标性酒店</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="utility-buttons">
+                    <button class="utility-button" onclick="openNavigation(day4Spots[0].position)">
+                        <i class="fas fa-location-arrow"></i>导航到起点
+                    </button>
+                    <button class="utility-button" onclick="callTaxi(day4Spots[0].position)">
+                        <i class="fas fa-taxi"></i>一键打车
+                    </button>
+                    <button class="utility-button" onclick="showNearbySearch(day4Spots[0].position)">
+                        <i class="fas fa-search-location"></i>周边搜索
+                    </button>
+                </div>
+                <div id="map-day4" class="map-container"></div>
+            </div>
+        </div>
+
+        <!-- Day 5 -->
+        <div class="day-card">
+            <div class="day-header">
+                <h2>Day 5 - 5月5日</h2>
+            </div>
+            <div class="day-content">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>08:26 - 14:40</h3>
+                        <p>绍兴北站 → 北京南站</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        window._AMapSecurityConfig = {
+            securityJsCode:'您的安全密钥',
+        }
+    </script>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=45a94c682eb6ab7f42c09edb7f4535f0"></script>
+    <script>
+        // 修改地图初始化函数
+        function initMap(containerId, center, spots) {
+            const map = new AMap.Map(containerId, {
+                zoom: 13,
+                center: center
+            });
+
+            // 添加标记点
+            spots.forEach(spot => {
+                // 创建自定义标记样式
+                const markerContent = document.createElement('div');
+                markerContent.className = 'marker-content';
+                markerContent.innerHTML = `
+                    <div style="
+                        background-color: ${spot.isHotel ? '#3366FF' : '#FF3366'};
+                        width: 24px;
+                        height: 24px;
+                        border-radius: 50%;
+                        border: 2px solid white;
+                        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: white;
+                        font-size: 12px;
+                    ">
+                        <i class="fas ${spot.isHotel ? 'fa-hotel' : 'fa-map-marker-alt'}"></i>
+                    </div>
+                `;
+
+                const marker = new AMap.Marker({
+                    position: spot.position,
+                    content: markerContent,
+                    title: spot.name,
+                    offset: new AMap.Pixel(-12, -12)
+                });
+                
+                marker.setMap(map);
+                
+                // 添加信息窗体
+                const infoWindow = new AMap.InfoWindow({
+                    content: `<div style="padding:10px;">
+                        <h4 style="margin-bottom:5px;color:${spot.isHotel ? '#3366FF' : '#FF3366'}">${spot.name}</h4>
+                        <p>${spot.address || ''}</p>
+                        ${spot.time ? `<p>时间：${spot.time}</p>` : ''}
+                        ${spot.isHotel ? '<p style="color: #3366FF;"><i class="fas fa-hotel"></i> 住宿地点</p>' : ''}
+                    </div>`,
+                    offset: new AMap.Pixel(0, -30)
+                });
+                
+                // 绑定点击事件
+                marker.on('click', () => {
+                    infoWindow.open(map, marker.getPosition());
+                });
+            });
+
+            // 添加路线
+            if (spots.length > 1) {
+                const path = spots.map(spot => spot.position);
+                const polyline = new AMap.Polyline({
+                    path: path,
+                    strokeColor: "#3366FF", 
+                    strokeWeight: 6,
+                    strokeOpacity: 0.9,
+                    showDir: true,
+                    dirColor: '#3366FF'
+                });
+                polyline.setMap(map);
+            }
+
+            // 自适应缩放级别
+            map.setFitView();
+        }
+
+        // 定义各天的景点数据
+        const day1Spots = [
+            {
+                name: '绍兴北站',
+                position: [120.582307, 30.032755],
+                time: '14:12到达',
+                address: '钱陶公路与一号路交汇处'
+            },
+            {
+                name: '绍兴兰亭璞燊酒店',
+                position: [120.631845, 29.954632],
+                time: '14:30-15:30',
+                address: '阳明路27号'
+            },
+            {
+                name: '兰亭书法博物馆',
+                position: [120.633426, 29.955847],
+                time: '16:00-18:00',
+                address: '兰亭景区'
+            },
+            {
+                name: '返回兰亭璞燊酒店',
+                position: [120.631845, 29.954632],
+                time: '18:30',
+                address: '阳明路27号',
+                isHotel: true
+            }
+        ];
+
+        const day2Spots = [
+            {
+                name: '兰亭景区',
+                position: [120.633426, 29.955847],
+                time: '09:00-11:30'
+            },
+            {
+                name: '鉴湖',
+                position: [120.578831, 30.074532],
+                time: '12:00-14:00'
+            },
+            {
+                name: '柯岩风景区',
+                position: [120.565677, 30.078524],
+                time: '14:30-16:30'
+            },
+            {
+                name: '鉴湖酒坊',
+                position: [120.578831, 30.074532],
+                time: '17:00-18:00'
+            },
+            {
+                name: '先锋鉴湖书店',
+                position: [120.578831, 30.074532],
+                time: '18:30-19:30'
+            },
+            {
+                name: '绍兴璞祺艺境酒店',
+                position: [120.573456, 30.079123],
+                time: '20:00',
+                address: '海山路1号',
+                isHotel: true
+            }
+        ];
+
+        const day3Spots = [
+            {
+                name: '书圣故里',
+                position: [120.578831, 30.074532],
+                time: '09:00-10:30'
+            },
+            {
+                name: '阳明故居',
+                position: [120.584543, 30.002654],
+                time: '11:00-12:30',
+                address: '府山街道上大路300号'
+            },
+            {
+                name: '子民图书馆',
+                position: [120.586234, 30.003567],
+                time: '14:00-15:30'
+            },
+            {
+                name: '历史街区',
+                position: [120.588123, 30.004789],
+                time: '16:00-18:30',
+                address: '有涧-松间-西小路-仓桥直街/龙山后街'
+            },
+            {
+                name: '拜拜咖啡馆',
+                position: [120.589234, 30.005678],
+                time: '19:00-20:00'
+            },
+            {
+                name: '绍兴饭店',
+                position: [120.585123, 30.004567],
+                time: '20:30',
+                address: '环山路8号',
+                isHotel: true
+            }
+        ];
+
+        const day4Spots = [
+            {
+                name: '绍兴博物馆',
+                position: [120.578123, 30.004567],
+                time: '09:00-11:00'
+            },
+            {
+                name: '鲁迅故里',
+                position: [120.583694, 30.004521],
+                time: '11:30-13:30',
+                address: '鲁迅中路241号'
+            },
+            {
+                name: '沈园',
+                position: [120.585678, 30.006789],
+                time: '14:00-15:30'
+            },
+            {
+                name: '东湖',
+                position: [120.587890, 30.008901],
+                time: '16:00-18:00'
+            },
+            {
+                name: '绍兴饭店',
+                position: [120.585123, 30.004567],
+                time: '18:30',
+                address: '环山路8号',
+                isHotel: true
+            }
+        ];
+
+        // 自动更新天气信息
+        async function updateWeather() {
+            try {
+                const response = await fetch('https://restapi.amap.com/v3/weather/weatherInfo?city=绍兴&key=您的Key&extensions=all');
+                const data = await response.json();
+                if (data.status === '1' && data.forecasts && data.forecasts.length > 0) {
+                    const weatherCards = document.querySelectorAll('.weather-card');
+                    data.forecasts[0].casts.forEach((forecast, index) => {
+                        if (index < weatherCards.length) {
+                            const card = weatherCards[index];
+                            card.innerHTML = `
+                                <h3>${forecast.date}</h3>
+                                <p>白天：${forecast.dayweather} ${forecast.daytemp}°C</p>
+                                <p>夜间：${forecast.nightweather} ${forecast.nighttemp}°C</p>
+                                <p><i class="fas fa-wind"></i> ${forecast.daywind}风 ${forecast.daypower}级</p>
+                            `;
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error('更新天气信息失败:', error);
+            }
+        }
+
+        // 每小时更新一次天气
+        setInterval(updateWeather, 3600000);
+        
+        // 页面加载完成后初始化地图和更新天气
+        window.onload = function() {
+            // 初始化第一天的地图
+            initMap('map-day1', [120.582307, 30.032755], day1Spots);
+            
+            // 初始化第二天的地图
+            initMap('map-day2', [120.578831, 30.074532], day2Spots);
+            
+            // 初始化第三天的地图
+            initMap('map-day3', [120.584543, 30.002654], day3Spots);
+            
+            // 初始化第四天的地图
+            initMap('map-day4', [120.583694, 30.004521], day4Spots);
+
+            // 更新天气信息
+            updateWeather();
+        };
+
+        // 导航功能
+        function openNavigation(position) {
+            const url = `https://uri.amap.com/navigation?to=${position[0]},${position[1]},目的地&mode=car&policy=1&src=mypage&coordinate=gaode&callnative=1`;
+            window.location.href = url;
+        }
+
+        // 打车功能
+        function callTaxi(position) {
+            const url = `https://uri.amap.com/navigation?to=${position[0]},${position[1]},目的地&mode=car&policy=1&src=mypage&coordinate=gaode&callnative=1`;
+            window.location.href = url;
+        }
+
+        // 周边搜索
+        function showNearbySearch(position) {
+            const url = `https://uri.amap.com/search?keyword=景点|美食|购物&center=${position[0]},${position[1]}&radius=1000&src=mypage&coordinate=gaode&callnative=1`;
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html> 
